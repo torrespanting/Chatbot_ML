@@ -1,0 +1,1 @@
+#how are you (greeting) #how is your day? (greeting) #good day (greeting) #how is it going today? (greeting) #have a nice day (goodbye) #see you later (goodbye) #have a nice day (goodbye) #talk to you soon (goodbye) #make me a sandwich (food) #can you make a sandwich? (food) #having a sandwich today? (food) #what's for lunch? (food)
