@@ -13,9 +13,9 @@
 #### If you want to add new categories, be sure to add some examples to the *_chatss.txt_*, and add the respective responses inside *_intents.json_*
 #### For the network to work after modifications, you need to re-train it, be sure to follow the following steps:
 #### 1. Navigate to the *_text_neural_network_* folder
-#### 1. Build the *_neural_network.go_* file with : *go build text_neural_network*
-#### 4. After building it, run the following for training: *_text_neural_network -command=train_*
-#### 5. Then after finishing the training you can test an input if you want with: *_text_neural_network -command=test user_input="test_sentence_here"_*
+#### 2. Build the *_neural_network.go_* file with : *go build text_neural_network*
+#### 3. After building it, run the following for training: *_text_neural_network -command=train_*
+#### 4. Then after finishing the training you can test an input if you want with: *_text_neural_network -command=test user_input="test_sentence_here"_*
 
 ## Final Comments
 #### This is an early model, I'm currently workin on, I'm planning on keep doing improves to the code, and expanding the data base. Also implementing other features like, grammar mistakes identifier, and typo errors identification. 
