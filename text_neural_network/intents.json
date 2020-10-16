@@ -1,0 +1,17 @@
+{
+"category":{
+        "greeting":["Hola, bien gracias!", "Bueno verte de nuevo", "Hola, como puedo ayudar?"],
+        "goodbye":["Nos vemos!", "Ten un buen dia", "Adios! Regresa pronto."],
+        "thanks":["Feliz de ayudar!", "Cuando quieras!", "Un placer"],
+        "noanswer":["Lo siento, no te entiendo", "Puedes ser mas especifico", "Eso no esta disponible"],
+        "options":["Puedo ayudarte a ordenar, ver el menu, dar un comentario, saber costos, entre otrs", "Ofrezco una manera rapida de acceder a varias opciones del restaurante"],
+        "orderpizza":["Ordenando una pizza", "Pizza agregada a tu orden", "Anotado! Desea algo mas ?"], 
+        "orderham":["Ordenando una hamburquesa", "Hamburguesa agregada a tu orden", "Anotado! Dease algo mas ?"], 
+        "ordersalad":["Ordenando una ensalada", "Ensalada agregada a tu orden", "Anotado! Desea algo mas ?"],
+        "ordersoda":["Ordenando una soda", "Soda agregada a tu orden", "Anotado! Desea algo mas ?"], 
+        "orderwater":["Ordenando un agua", "Agua agregada a tu orden", "Anotado! Desea algo mas ?"], 
+        "ordertea":["Ordenando un té", "Té agregado a tu orden", "Anotado! Desea algo mas ?"],
+        "disliked":["Lamento escuhar eso, como podemos mejorar ?", "Puedes sugerir algun cambio ?"],
+        "liked":["Es excelente escuchar eso!", "Es nuestro trabajo, no es nada", "No encontraras un restaruante mejor !", "Que bueno que te gusto"]
+    }
+}
