@@ -94,14 +94,6 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 	//Set random weights for synapse_1 and synapse_0
 	synapse_0 := mat.NewDense(c1, hidden, data1)
 	synapse_1 := mat.NewDense(hidden, c2, data2)
-	prev_synapse_0_weight_update := new(mat.Dense)
-	prev_synapse_0_weight_update.CloneFrom(synapse_0)
-	prev_synapse_0_weight_update.Zero()
-
-	//Set matrix of zeros of same size as synapse_1
-	prev_synapse_1_weight_update := new(mat.Dense)
-	prev_synapse_1_weight_update.CloneFrom(synapse_1)
-	prev_synapse_1_weight_update.Zero()
 
 	for ep := 0; ep <= epochs; ep++ {
 		//Set input, layer 0
@@ -143,11 +135,11 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 				break
 			}
 		}
-		//Get delta of layer_2 from the error
+		//Backward propagation layer 2, derivative and error
 		layer_2_delta := new(mat.Dense)
 		layer_2_delta.MulElem(layer_2_error, sig_to_dev(layer_2))
 
-		//Get layer_1 error
+		//Backward propagation layer 1, derivative and error
 		layer_1_error := new(mat.Dense)
 		layer_1_error.Product(layer_2_delta, synapse_1.T())
 
@@ -155,7 +147,7 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 		layer_1_delta := new(mat.Dense)
 		layer_1_delta.MulElem(layer_1_error, sig_to_dev(layer_1))
 
-		//Get the updated weights from a the delta of layers
+		//Get the updated weights based on gradient decent
 		synapse_1_weight_update := new(mat.Dense)
 		synapse_0_weight_update := new(mat.Dense)
 		synapse_1_weight_update.Product(layer_1.T(), layer_2_delta)
@@ -170,10 +162,6 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 		mul1 := new(mat.Dense)
 		mul1.Apply(func(i, j int, v float64) float64 { return alpha * v }, synapse_0_weight_update)
 		synapse_0.Add(synapse_0, mul1)
-
-		//Upadte previous synapse with the most recent value
-		prev_synapse_0_weight_update.CloneFrom(synapse_0_weight_update)
-		prev_synapse_1_weight_update.CloneFrom(synapse_1_weight_update)
 
 	}
 	//Store the synapse matrixes values on data
