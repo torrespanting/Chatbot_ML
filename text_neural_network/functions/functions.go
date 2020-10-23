@@ -103,16 +103,6 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 	prev_synapse_1_weight_update.CloneFrom(synapse_1)
 	prev_synapse_1_weight_update.Zero()
 
-	//Set matriz of zeros of same size as synapse_0
-	synapse_0_direction_count := new(mat.Dense)
-	synapse_0_direction_count.CloneFrom(synapse_0)
-	synapse_0_direction_count.Zero()
-
-	//Set matrix of zeros of same size as synapse_1
-	synapse_1_direction_count := new(mat.Dense)
-	synapse_1_direction_count.CloneFrom(synapse_1)
-	synapse_1_direction_count.Zero()
-
 	for ep := 0; ep <= epochs; ep++ {
 		//Set input, layer 0
 		layer_0 := x
@@ -171,63 +161,6 @@ func Train(x *mat.Dense, y *mat.Dense, hidden int, alpha float64, epochs int, dr
 		synapse_1_weight_update.Product(layer_1.T(), layer_2_delta)
 		synapse_0_weight_update.Product(layer_0.T(), layer_1_delta)
 
-		//If this is not the first loop then
-		if ep > 0 {
-			//Apply a biniarization on the synapse 0 matrix
-			synapse_0_binary := new(mat.Dense)
-			prev_synapse_0_binary := new(mat.Dense)
-			synapse_0_binary.Apply(func(i, j int, v float64) float64 {
-				if v > 0 {
-					v = 1
-					return v
-				} else {
-					v = 0
-					return v
-				}
-			}, synapse_0_weight_update)
-			//Apply a binarization on the prev synapse 0 matrix
-			prev_synapse_0_binary.Apply(func(i, j int, v float64) float64 {
-				if v > 0 {
-					v = 1
-					return v
-				} else {
-					v = 0
-					return v
-				}
-			}, prev_synapse_0_weight_update)
-			//Substract both matrix to get the new direction
-			sub_0_result := new(mat.Dense)
-			sub_0_result.Sub(synapse_0_binary, prev_synapse_0_binary)
-			synapse_0_direction_count.Add(synapse_0_direction_count, absolute(sub_0_result))
-
-			//Apply a binarization on the synapse 1 matrix
-			synapse_1_binary := new(mat.Dense)
-			prev_synapse_1_binary := new(mat.Dense)
-			synapse_1_binary.Apply(func(i, j int, v float64) float64 {
-				if v > 0 {
-					v = 1
-					return v
-				} else {
-					v = 0
-					return v
-				}
-			}, synapse_1_weight_update)
-			//Apply a binarizaion on the prev synapse matrix
-			prev_synapse_1_binary.Apply(func(i, j int, v float64) float64 {
-				if v > 0 {
-					v = 1
-					return v
-				} else {
-					v = 0
-					return v
-				}
-			}, prev_synapse_1_weight_update)
-			//Substract both matrix to get the new direction
-			sub_1_result := new(mat.Dense)
-			sub_1_result.Sub(synapse_1_binary, prev_synapse_1_binary)
-			synapse_1_direction_count.Add(synapse_1_direction_count, absolute(sub_1_result))
-
-		}
 		//Apply the learning rate alpha to synapse 1 matrix
 		mul := new(mat.Dense)
 		mul.Apply(func(i, j int, v float64) float64 { return alpha * v }, synapse_1_weight_update)
